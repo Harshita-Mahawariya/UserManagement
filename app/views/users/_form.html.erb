@@ -1,0 +1,68 @@
+<h2>User Fields</h2>
+<%= form_with(model: @user, local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, placeholder: "Enter your email" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, placeholder: "Enter your password" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Enter your name" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mobile_number %>
+    <%= form.telephone_field :mobile_number, placeholder: "Enter your mobile number" %>
+  </div>
+
+  <h3>Custom Fields</h3>
+ <%= form.fields_for :custom_fields do |cf| %>
+
+
+
+  <div class="field">
+    <%= cf.label :field_label, "Field Label" %>
+    <%= cf.text_field :field_label, placeholder: "Enter field label" %>
+  </div>
+  <div class="field">
+    <%= cf.label :field_type, "Field Type" %>
+    <%= cf.select :field_type, ['number', 'text', 'date'], prompt: "Select field type", id: 'input-type-select', data: { default_value_field_id: cf.object.object_id } %>
+  </div>
+  <div class="field">
+ <div class="field">
+    <%= cf.label :field_type, "Enter Value" %>
+    <%= cf.date_field :field_type, id: 'dynamic-field', class: 'form-control' %>
+  </div>
+  </div>
+<% end %>
+  <div class="actions">
+    <%= form.submit "Submit" %>
+  </div>
+<% end %>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const inputTypeSelect = document.getElementById("user_custom_fields_attributes_0_field_type");
+    const dynamicField = document.getElementById("dynamic-field");
+    inputTypeSelect.addEventListener("change", function() {
+      dynamicField.type = inputTypeSelect.value;
+    });
+  });
+</script>

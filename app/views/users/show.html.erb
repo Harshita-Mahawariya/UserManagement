@@ -1,0 +1,10 @@
+
+<h3>User Fields</h3>
+<p><strong>Name:</strong> <%= @user.name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Mobile Number:</strong> <%= @user.mobile_number %></p>
+
+<h3>Custom Fields</h3>
+<% @user.custom_fields.each do |cf| %>
+  <p><strong><%= cf.field_label %>: </strong> <%= cf.field_type %></p>
+<% end %>
